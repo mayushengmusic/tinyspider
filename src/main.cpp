@@ -100,7 +100,7 @@ int main(int argc,char **argv) {
     safebuf buf;
     buf.insertlink(links);
 
-   
+
 
    auto multprocesslambda = [&](int threadid){
 
@@ -111,14 +111,16 @@ int main(int argc,char **argv) {
            std::clog<<threadid<<" "<<link<<std::endl;//
            if(link=="NULL")
            {
-               break;
+               std::cout<<"sleep 5 seconds"<<std::endl;
+               std::this_thread::sleep_for(std::chrono::seconds(5));
+               continue;
            }
            std::string typecheckstring(".*\\.");
            typecheckstring+=type;
            boost::regex typecheck(typecheckstring.c_str());
            if(boost::regex_match(link,typecheck))
            {
-               std::cout<<type<<std::endl;
+
                std::string dominfromlink=domin;
                std::string locfromlink = string_process(link,dominfromlink);
                if(locfromlink=="NULL")
@@ -146,10 +148,9 @@ int main(int argc,char **argv) {
            }
            else
            {
-               std::cout<<"page\n";//
+
                std::string dominfromlink=domin;
                std::string locfromlink = string_process(link,dominfromlink);
-               std::cout<<dominfromlink<<" x x "<<locfromlink<<std::endl;
 
                if(locfromlink=="NULL")
                    continue;
