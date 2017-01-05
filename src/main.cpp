@@ -100,6 +100,8 @@ int main(int argc,char **argv) {
     safebuf buf;
     buf.insertlink(links);
 
+   
+
    auto multprocesslambda = [&](int threadid){
 
        while(true)
@@ -135,6 +137,7 @@ int main(int argc,char **argv) {
                    file<<r->content.rdbuf();
                }catch (...)
                {
+                   std::clog<<"broke link\n";
                    continue;
                }
 
@@ -146,9 +149,7 @@ int main(int argc,char **argv) {
                std::cout<<"page\n";//
                std::string dominfromlink=domin;
                std::string locfromlink = string_process(link,dominfromlink);
-
-
-
+               std::cout<<dominfromlink<<" x x "<<locfromlink<<std::endl;
 
                if(locfromlink=="NULL")
                    continue;
@@ -163,6 +164,7 @@ int main(int argc,char **argv) {
                ssforchangepage<<r->content.rdbuf();}
                catch (...)
                {
+                   std::clog<<"broke link\n";
                    continue;
                }
                std::vector<std::string> linksforthread;

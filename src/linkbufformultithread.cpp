@@ -11,7 +11,7 @@ safebuf::safebuf():LinkQueue(),LinkSet(){
 void safebuf::insertlink(std::vector<std::string> links) {
     std::lock_guard<std::mutex> lk(mutexforboth);
     for(auto &link: links)
-    if(LinkSet.count(link)==0)
+    if(LinkSet.count(link)==0&&!links.empty())
     {
         LinkQueue.push(link);
         LinkSet.insert(link);

@@ -7,8 +7,8 @@
 
 const boost::regex findlink::typematch=boost::regex("[\\d\\D]+<html.*\\>[\\d\\D]+</html\\>[\\d\\D]+");
 //match html file.
-const boost::regex findlink::srcandhrefwithmark=boost::regex("(?:(?:src)|(?:href))\\s?=\\s?([\'\"]{1})(.+?)\\1");
-const boost::regex findlink::srcandhrefwithoutmark=boost::regex("(?:(?:src)|(?:href))\\s?=\\s?([^[\"\']]+?)\\s");
+const boost::regex findlink::srcandhref=boost::regex("(?:(?:src)|(?:href))\\s?=\\s?[\"\']?([-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|])[\"\']?\\s?");
+
 
 bool findlink::checkpagetype(std::string &message) {
     return boost::regex_match(message,typematch);
@@ -23,10 +23,7 @@ void findlink::getlinkinpage(const std::string &message, std::vector<std::string
 
 
         boost::sregex_iterator end;
-        for (boost::sregex_iterator iter(std::cbegin(data), std::cend(data), srcandhrefwithmark); iter != end; ++iter) {
-            veclink.emplace_back((*iter)[2]);
-        }
-        for (boost::sregex_iterator iter(std::cbegin(data), std::cend(data), srcandhrefwithoutmark); iter != end; ++iter) {
+        for (boost::sregex_iterator iter(std::cbegin(data), std::cend(data), srcandhref); iter != end; ++iter) {
             veclink.emplace_back((*iter)[1]);
         }
 

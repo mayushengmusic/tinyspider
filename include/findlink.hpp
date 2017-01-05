@@ -16,8 +16,8 @@
 
     private:
         static bool checkpagetype(std::string & message);
-        const static boost::regex srcandhrefwithmark;
-        const static boost::regex srcandhrefwithoutmark;
+        const static boost::regex srcandhref;
+
         const static boost::regex typematch;
 
     };
