@@ -18,7 +18,7 @@ void safebuf::insertlink(std::vector<std::string> links) {
     }
 }
 
-const std::string safebuf::getandpoplink() {
+const std::string safebuf::getandpoplink(int threadid) {
     std::string back;
     std::lock_guard<std::mutex> lk(mutexforboth);
     if(LinkQueue.empty())
@@ -28,7 +28,7 @@ const std::string safebuf::getandpoplink() {
        back =  LinkQueue.top();
        LinkQueue.pop();
     }
-
+    std::clog<<threadid<<" "<<back<<std::endl;
     return back;
 
 }

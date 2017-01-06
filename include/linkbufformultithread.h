@@ -5,6 +5,7 @@
 #include <queue>
 #include <boost/regex.hpp>
 #include <mutex>
+#include <iostream>
 
 #ifndef TINYSPIDER_LINKBUFFORMULTITHREAD_H
 #define TINYSPIDER_LINKBUFFORMULTITHREAD_H
@@ -21,8 +22,8 @@ public:
     explicit safebuf();
     safebuf &operator=(safebuf &) = delete;
     void insertlink(std::vector<std::string> links);
-    const std::string getandpoplink();
-    bool checkempty();
+    const std::string getandpoplink(int threadid);
+
 
 
 private:

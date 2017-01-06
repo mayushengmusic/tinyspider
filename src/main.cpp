@@ -99,7 +99,7 @@ int main(int argc,char **argv) {
 
     safebuf buf;
     buf.insertlink(links);
-
+    std::atomic_int sleepcount(0);
 
 
    auto multprocesslambda = [&](int threadid){
@@ -107,12 +107,15 @@ int main(int argc,char **argv) {
        while(true)
        {
 
-           std::string link = buf.getandpoplink();
-           std::clog<<threadid<<" "<<link<<std::endl;//
+           std::string link = buf.getandpoplink(threadid);
+
            if(link=="NULL")
            {
+               if(sleepcount==6*threadnum)
+                   break;
                std::cout<<"sleep 5 seconds"<<std::endl;
                std::this_thread::sleep_for(std::chrono::seconds(5));
+               sleepcount++;
                continue;
            }
            std::string typecheckstring(".*\\.");
