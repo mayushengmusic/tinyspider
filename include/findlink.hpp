@@ -15,7 +15,7 @@
         static void getlinkinpage(const std::string & message,std::vector<std::string> & veclink);
 
     private:
-        static bool checkpagetype(std::string & message);
+        //static bool checkpagetype(std::string & message);
         const static boost::regex srcandhref;
 
         const static boost::regex typematch;
